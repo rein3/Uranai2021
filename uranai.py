@@ -260,7 +260,7 @@ def snack(num):
 
 # フレーム 状態をもつ辞書
 frame = {}
-def uranai(input_text):
+def uranai2(input_text):
   global frame # 外部の状態を参照する
   if 'asking' in frame:  # asking から更新する
     frame[frame['asking']] = input_text
@@ -272,7 +272,7 @@ def uranai(input_text):
 
   if 'name' in frame and 'Byear' not in frame:
     frame['asking'] = 'Byear' # 誕生年をたずねる 
-    return 'あなたの誕生年は西暦何年？（半角数字4桁）'
+    return 'あなたの誕生年は西暦何年？半角数字4桁で答えてね'
   pattern = r'\d\d\d\d'
   Byear = int(frame['Byear'])
   content = str(Byear)
@@ -291,27 +291,27 @@ def uranai(input_text):
 
   if 'name' in frame and 'Bmonth' not in frame:
     frame['asking'] = 'Bmonth' # 誕生日をたずねる    
-    return 'あなたの誕生月は？数字だけを入力してね'
+    return 'あなたの誕生月は？半角数字だけを入力してね'
   Bmonth = int(frame['Bmonth'])
-  if Bmonth > 12:
+  if (Bmonth > 12) or (Bmonth < 1):
     frame['asking'] = 'Bmonth' # 誕生日をたずねる 
     return 'そんな月はないよ！もう一度入力してね'
 
   if 'name' in frame and 'Bday' not in frame:
     frame['asking'] = 'Bday' # 誕生日をたずねる    
-    return 'あなたの誕生日は？数字だけを入力してね'
+    return 'あなたの誕生日は？半角数字だけを入力してね'
 
   Bday = int(frame['Bday'])
   if Bmonth == 1 or 3 or 5 or 7 or 8 or 10 or 12:
-    if Bday > 31:
+    if (Bday > 31) or (Bday < 1):
       frame['asking'] = 'Bday' # 誕生日をたずねる    
       return 'そんな日はないよ!もう一度入力してね'
   elif Bmonth == 4 or 6 or 9 or 11:
-    if Bday > 30:
+    if (Bday > 30) or (Bday < 1):
       frame['asking'] = 'Bday' # 誕生日をたずねる    
       return 'そんな日はないよ!もう一度入力してね'
   elif Bmonth == 2:
-    if Bday > 29:
+    if (Bday > 29) or (Bday < 1):
       frame['asking'] = 'Bday' # 誕生日をたずねる    
       return 'そんな日はないよ!もう一度入力してね'
 
@@ -350,17 +350,16 @@ def uranai(input_text):
       while unsei >= 10:
         u = str(unsei)
         unsei = int(u[-1]) + int(u[-2])
-      if unsei == 0 or 1:
-        print(frame['name'] ,'におすすめのお菓子は.....' , snack(okashi))
-        return '今日の運勢は小吉です☆!!'
-      elif unsei == 2 or 3 or 4:
-        return '今日の運勢は中吉です☆☆!!'
-      elif unsei == 5 or 6 or 7:
-        return '今日の運勢は吉です☆☆☆!!'
-      elif unsei == 8 or 9:
-        return '今日の運勢は大吉です☆☆☆☆!!'
+        print(frame['name'] ,'さんにおすすめのお菓子は.....' , snack(okashi))
+      if unsei == 0 or 1 or 2 or 3:
+        return '今日の運勢は中吉だよ!!☆きっといい日になると思うよ'
+      elif unsei == 4 or 5 or 6:
+        return '今日の運勢は吉だよ!!☆☆いい日になると思うよ'
+      else:
+        return '今日の運勢は大吉だよ!!☆☆☆とってもいい日になると思うよ'
     
-  return output_text
   
+  return output_text
+
 def start():
-  run_chat(chat=uranai)
+  run_chat(chat=uranai2)
