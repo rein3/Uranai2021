@@ -16,7 +16,7 @@ def chat(text, **kw):  #チャット用の関数（ここを書き換える）
 def run_chat(chat = chat, start='今日の運勢とおすすめのお菓子を紹介するね‼返事をしてくれたら始まるよ', **kw):
   def display_bot(bot_text):
     with output.redirect_to_element('#output'):
-      bot_name = kw.get('bot_name', 'ボット')
+      bot_name = kw.get('bot_name', '占い師')
       bot_icon = kw.get('bot_icon', BOT_ICON)
       display(IPython.display.HTML(f'''
       <div class="sb-box">
@@ -350,7 +350,7 @@ def uranai2(input_text):
       while unsei >= 10:
         u = str(unsei)
         unsei = int(u[-1]) + int(u[-2])
-        print(frame['name'] ,'さんにおすすめのお菓子は.....' , snack(okashi))
+        print(frame['name'] ,'さんにおすすめのお菓子は...' , snack(okashi))
       if unsei == 0 or 1 or 2 or 3:
         return '今日の運勢は中吉だよ!!☆きっといい日になると思うよ'
       elif unsei == 4 or 5 or 6:
