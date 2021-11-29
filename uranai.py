@@ -319,10 +319,15 @@ def uranai2(input_text):
   if ('name' in frame) and ('Byear' in frame) and ('Bmonth' in frame) and ('Bday' in frame):
     if not ('ura' in frame):
       # 占います
-      By = int(frame['Byear'])
+      By = int(frame['Byear'])      
       while By >= 10:
         y = str(By)
-        By = int(y[-1]) + int(y[-2]) + int(y[-3]) + int(y[-4])
+        if len(y) == 4:
+          By = int(y[-1]) + int(y[-2]) + int(y[-3]) + int(y[-4])
+        elif len(y) == 3:
+          By = int(y[-1]) + int(y[-2]) + int(y[-3])
+        elif len(y) == 2:
+          By = int(y[-1]) + int(y[-2])
       Bm = int(frame['Bmonth'])
       while Bm >= 10:
         m = str(Bm)
@@ -349,8 +354,8 @@ def uranai2(input_text):
       okashi = str(year) + str(month) + str(day)
       while unsei >= 10:
         u = str(unsei)
-        unsei = int(u[-1]) + int(u[-2])
-        print(frame['name'] ,'さんにおすすめのお菓子は...' , snack(okashi))
+        unsei = int(u[-1]) + int(u[-2])  
+      print(frame['name'] ,'さんにおすすめのお菓子は...' , snack(okashi))
       if unsei == 0 or 1 or 2 or 3:
         return '今日の運勢は中吉だよ!!☆きっといい日になると思うよ'
       elif unsei == 4 or 5 or 6:
